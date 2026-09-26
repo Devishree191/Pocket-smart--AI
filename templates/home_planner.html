@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Interior Budget Planner | PocketSmart AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <a href="/dashboard" class="nav-brand">
+      <span>PocketSmart</span>
+      <span class="brand-badge">Home</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/dashboard"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Dashboard</a></li>
+      <li><a href="/home-planner" class="active"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Home Planner</a></li>
+      <li><a href="/party-planner"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/></svg> Party Planner</a></li>
+      <li><a href="/jewelry-planner"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Jewelry Planner</a></li>
+      <li><a href="/logout" class="nav-btn" style="background: rgba(255,255,255,0.15);">Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- Page Banner -->
+  <header class="page-banner">
+    <h1>Home Interior Budget Planner</h1>
+    <p>Create a customized budget plan for your dream home interior with AI recommendations</p>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Form Card -->
+    <div class="form-card">
+      <form id="home-planner-form">
+        <!-- Section 1: Budget Details -->
+        <div class="form-section">
+          <div class="form-section-title">
+            <svg style="width:20px;height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Budget Details</span>
+          </div>
+          <div class="form-group">
+            <label for="total_budget">Total Budget (₹)</label>
+            <div class="input-icon-wrapper">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              <input type="number" id="total_budget" name="total_budget" placeholder="e.g. 50000" value="5000" min="500" required>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Fixtures & Furniture -->
+        <div class="form-section">
+          <div class="form-section-title">
+            <svg style="width:20px;height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+            <span>Fixtures & Furniture</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="num_lights">Number of Lights/Fixtures</label>
+              <div class="input-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                <input type="number" id="num_lights" name="num_lights" value="5" min="0" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="num_fans">Number of Ceiling Fans</label>
+              <div class="input-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                <input type="number" id="num_fans" name="num_fans" value="4" min="0" required>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="num_furniture">Number of Furniture Pieces</label>
+              <div class="input-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+                <input type="number" id="num_furniture" name="num_furniture" value="2" min="0" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="num_dining_tables">Number of Dining Tables</label>
+              <div class="input-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+                <input type="number" id="num_dining_tables" name="num_dining_tables" value="1" min="0" required>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Rooms to Include -->
+        <div class="form-section">
+          <div class="form-section-title">
+            <svg style="width:20px;height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+            <span>Rooms to Include</span>
+          </div>
+          <div class="checkbox-group">
+            <label class="checkbox-item">
+              <input type="checkbox" id="has_living_room" name="has_living_room" checked>
+              <span>Living Room</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="has_kitchen" name="has_kitchen" checked>
+              <span>Kitchen</span>
+            </label>
+            <label class="checkbox-item">
+              <input type="checkbox" id="has_bedroom" name="has_bedroom">
+              <span>Bedroom</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Section 4: Additional Information -->
+        <div class="form-section">
+          <div class="form-section-title">
+            <svg style="width:20px;height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>Additional Information</span>
+          </div>
+          <div class="form-group">
+            <label for="additional_requirements">Special Requirements or Preferences</label>
+            <textarea id="additional_requirements" name="additional_requirements" placeholder="Any specific requirements, color themes, space-saving needs, modern minimalist finishes..."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" id="generate-btn" class="btn btn-primary btn-block" style="padding: 14px; font-size: 1.05rem;">
+          <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Generate Recommendations</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Results Section -->
+    <div id="results-area" class="results-container">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <h2 style="font-size: 1.85rem; font-weight: 800; color: #0f172a;">Your Personalized Budget Plan</h2>
+        <p style="color: #64748b;">Optimized for Indian e-commerce platforms with direct product searches</p>
+      </div>
+
+      <!-- Budget Summary -->
+      <div class="budget-summary-card">
+        <div class="summary-item">
+          <span class="summary-label">Total Budget</span>
+          <span class="summary-value" id="res-total-budget">₹5,000.00</span>
+        </div>
+        <div class="summary-item" style="text-align: right;">
+          <span class="summary-label">Remaining Budget</span>
+          <span class="summary-value remaining" id="res-remaining-budget">₹500.00</span>
+        </div>
+      </div>
+
+      <!-- Category Breakdowns -->
+      <div id="categories-container"></div>
+
+      <!-- Calculation Table Breakdown -->
+      <div class="card" style="margin-bottom: 1.75rem;">
+        <h3 style="font-size: 1.1rem; font-weight: 700; color: #1e3a8a; margin-bottom: 1rem;">Category Allocation Summary</h3>
+        <div style="overflow-x: auto;">
+          <table class="item-table" id="calc-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Items Count</th>
+                <th>Total Cost</th>
+                <th>% of Budget</th>
+              </tr>
+            </thead>
+            <tbody id="calc-table-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Additional Suggestions -->
+      <div class="tips-card">
+        <div class="tips-title">
+          <svg style="width:20px;height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Additional AI Suggestions & Tips</span>
+        </div>
+        <ul class="tips-list" id="res-tips-list"></ul>
+      </div>
+
+      <div style="text-align: center; margin-top: 2rem;">
+        <button onclick="window.print()" class="btn btn-secondary" style="gap: 8px;">
+          <svg style="width:18px;height:18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          <span>Print / Save Plan</span>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-bottom" style="border-top: none; padding: 0;">
+      &copy; 2025 PocketSmart. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("home-planner-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById("generate-btn");
+      btn.disabled = true;
+      btn.innerHTML = `<span class="spinner"></span> Generating recommendations with Gemini AI...`;
+
+      const payload = {
+        total_budget: parseFloat(document.getElementById("total_budget").value),
+        num_lights: parseInt(document.getElementById("num_lights").value) || 0,
+        num_fans: parseInt(document.getElementById("num_fans").value) || 0,
+        num_furniture: parseInt(document.getElementById("num_furniture").value) || 0,
+        num_dining_tables: parseInt(document.getElementById("num_dining_tables").value) || 0,
+        has_living_room: document.getElementById("has_living_room").checked,
+        has_kitchen: document.getElementById("has_kitchen").checked,
+        has_bedroom: document.getElementById("has_bedroom").checked,
+        additional_requirements: document.getElementById("additional_requirements").value
+      };
+
+      try {
+        const response = await fetch("/home-budget", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          renderHomeResults(result);
+        } else {
+          // Fallback client-side calculation
+          renderFallbackHome(payload);
+        }
+      } catch (err) {
+        renderFallbackHome(payload);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> <span>Generate Recommendations</span>`;
+      }
+    });
+
+    function renderHomeResults(data) {
+      document.getElementById("res-total-budget").textContent = `₹${parseFloat(data.total_budget || 0).toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+      document.getElementById("res-remaining-budget").textContent = `₹${parseFloat(data.remaining_budget || 0).toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+
+      const catContainer = document.getElementById("categories-container");
+      catContainer.innerHTML = "";
+
+      (data.budget_breakdown || []).forEach(cat => {
+        const group = document.createElement("div");
+        group.className = "category-group";
+        
+        let rowsHtml = "";
+        (cat.items || []).forEach(it => {
+          const links = it.shopping_links || {};
+          let chipsHtml = "";
+          for (const [platform, url] of Object.entries(links)) {
+            chipsHtml += `<a href="${url}" target="_blank" rel="noopener noreferrer" class="shop-chip ${platform}">🛒 ${platform.toUpperCase()}</a>`;
+          }
+
+          rowsHtml += `
+            <tr>
+              <td>
+                <div class="item-name">${it.name}</div>
+                <div class="item-desc">${it.description || ''}</div>
+              </td>
+              <td>${it.description || 'Standard decor piece'}</td>
+              <td class="item-price">₹${parseFloat(it.estimated_price || 0).toLocaleString('en-IN')}</td>
+              <td>${it.quantity || 1}</td>
+              <td><div class="shopping-chips">${chipsHtml}</div></td>
+            </tr>
+          `;
+        });
+
+        group.innerHTML = `
+          <div class="category-header">
+            <div class="category-title">
+              <svg style="width:18px;height:18px;color:#2563eb;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v8M8 12h8"/></svg>
+              <span>${cat.category}</span>
+            </div>
+            <span class="category-allocation">Allocation: ₹${parseFloat(cat.allocation || 0).toLocaleString('en-IN')}</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="item-table">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Description</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Shopping Links</th>
+                </tr>
+              </thead>
+              <tbody>${rowsHtml}</tbody>
+            </table>
+          </div>
+        `;
+        catContainer.appendChild(group);
+      });
+
+      // Render Calculation Table
+      const calcBody = document.getElementById("calc-table-body");
+      calcBody.innerHTML = "";
+      (data.calculation_table || []).forEach(c => {
+        calcBody.innerHTML += `
+          <tr>
+            <td><strong>${c.category}</strong></td>
+            <td>${c.items_count}</td>
+            <td class="item-price">₹${parseFloat(c.total_cost).toLocaleString('en-IN')}</td>
+            <td><span style="font-weight:600; color:#2563eb;">${c.percentage_of_budget}%</span></td>
+          </tr>
+        `;
+      });
+
+      // Suggestions
+      const tipsList = document.getElementById("res-tips-list");
+      tipsList.innerHTML = "";
+      (data.additional_suggestions || []).forEach(tip => {
+        tipsList.innerHTML += `<li>${tip}</li>`;
+      });
+
+      const resArea = document.getElementById("results-area");
+      resArea.style.display = "block";
+      resArea.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function renderFallbackHome(payload) {
+      const budget = payload.total_budget;
+      const data = {
+        total_budget: budget,
+        remaining_budget: Math.round(budget * 0.1),
+        budget_breakdown: [
+          {
+            category: "Lighting",
+            allocation: budget * 0.2,
+            items: [{
+              name: "Philips LED Warm White Fixture Set",
+              description: "Energy-efficient ambient light",
+              estimated_price: Math.round((budget * 0.2) / (payload.num_lights || 1)),
+              quantity: payload.num_lights || 1,
+              shopping_links: {
+                amazon: `https://www.amazon.in/s?k=Philips+LED+Light`,
+                flipkart: `https://www.flipkart.com/search?q=Philips+LED+Light`,
+                ikea: `https://www.ikea.com/in/en/search/?q=LED+Light`
+              }
+            }]
+          },
+          {
+            category: "Ceiling Fans",
+            allocation: budget * 0.3,
+            items: [{
+              name: "Atomberg BLDC High Speed Fan",
+              description: "5-star energy saving decorative fan with remote",
+              estimated_price: Math.round((budget * 0.3) / (payload.num_fans || 1)),
+              quantity: payload.num_fans || 1,
+              shopping_links: {
+                amazon: `https://www.amazon.in/s?k=Atomberg+BLDC+Ceiling+Fan`,
+                flipkart: `https://www.flipkart.com/search?q=Atomberg+BLDC+Ceiling+Fan`
+              }
+            }]
+          },
+          {
+            category: "Furniture",
+            allocation: budget * 0.4,
+            items: [{
+              name: "Solimo / IKEA Compact Living Set",
+              description: "Modern modular seating and table solution",
+              estimated_price: Math.round((budget * 0.4) / (payload.num_furniture || 1)),
+              quantity: payload.num_furniture || 1,
+              shopping_links: {
+                amazon: `https://www.amazon.in/s?k=Living+Room+Furniture`,
+                ikea: `https://www.ikea.com/in/en/search/?q=Sofa+Furniture`
+              }
+            }]
+          }
+        ],
+        calculation_table: [
+          { category: "Lighting", items_count: payload.num_lights, total_cost: budget * 0.2, percentage_of_budget: 20 },
+          { category: "Ceiling Fans", items_count: payload.num_fans, total_cost: budget * 0.3, percentage_of_budget: 30 },
+          { category: "Furniture", items_count: payload.num_furniture, total_cost: budget * 0.4, percentage_of_budget: 40 }
+        ],
+        additional_suggestions: [
+          "Consider purchasing multi-functional furniture for compact living.",
+          "Check IKEA and Amazon during weekend sales for coupon discounts."
+        ]
+      };
+      renderHomeResults(data);
+    }
+  </script>
+
+</body>
+</html>

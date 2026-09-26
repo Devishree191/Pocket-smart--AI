@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recommendation History | PocketSmart AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <a href="/dashboard" class="nav-brand">
+      <span>PocketSmart</span>
+      <span class="brand-badge" style="background: linear-gradient(135deg, #10b981, #059669);">History</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/dashboard"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Dashboard</a></li>
+      <li><a href="/home-planner"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Home Planner</a></li>
+      <li><a href="/party-planner"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/></svg> Party Planner</a></li>
+      <li><a href="/jewelry-planner"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Jewelry Planner</a></li>
+      <li><a href="/history" class="active"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> History</a></li>
+      <li><a href="/logout" class="nav-btn" style="background: rgba(255,255,255,0.15);">Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- Page Banner -->
+  <header class="page-banner" style="background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);">
+    <h1>Your Recommendation History</h1>
+    <p>View and manage all your previous budget plans and recommendations</p>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 1.5rem;">
+      <svg style="width:24px;height:24px;color:#2563eb;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <h2 style="font-size: 1.4rem; font-weight: 700; color: #0f172a;">Recent Recommendations</h2>
+    </div>
+
+    <!-- Cards Grid -->
+    <div class="grid-3" id="history-grid" style="margin-top: 0;">
+      {% if history and history|length > 0 %}
+        {% for item in history %}
+          <div class="card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <span class="history-type-badge {% if item.recommendation_type == 'home' %}badge-home{% elif item.recommendation_type == 'party' %}badge-party{% else %}badge-jewelry{% endif %}">
+                    {{ item.recommendation_type|upper }}
+                  </span>
+                  <h4 style="font-size: 1.05rem; font-weight: 700; color: #0f172a;">
+                    {% if item.recommendation_type == 'home' %}Home Interior Budget
+                    {% elif item.recommendation_type == 'party' %}Party Planning Budget
+                    {% else %}Jewelry Budget{% endif %}
+                  </h4>
+                </div>
+              </div>
+
+              <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 1rem;">{{ item.timestamp }}</div>
+
+              <div style="display: flex; justify-content: space-between; background: #f8fafc; padding: 10px 14px; border-radius: var(--radius-md); margin-bottom: 1rem;">
+                <div>
+                  <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Total Budget</div>
+                  <div style="font-size: 1.15rem; font-weight: 800; color: #0f172a;">₹{{ item.input_summary.get('budget', item.input_summary.get('total_budget', 5000)) }}</div>
+                </div>
+                <div style="text-align: right;">
+                  <div style="font-size: 0.75rem; color: #64748b; text-transform: uppercase;">Remaining</div>
+                  <div style="font-size: 1.15rem; font-weight: 800; color: #10b981;">₹{{ item.full_result.get('remaining_budget', 0) }}</div>
+                </div>
+              </div>
+
+              <!-- Key Meta -->
+              <div style="font-size: 0.84rem; color: #475569; margin-bottom: 1.25rem;">
+                {% if item.recommendation_type == 'home' %}
+                  <div><strong>Rooms:</strong> {{ item.input_summary.get('rooms', 'Living Room') }}</div>
+                  <div><strong>Items:</strong> Lights: {{ item.input_summary.get('num_lights', item.input_summary.get('lights', 5)) }}, Fans: {{ item.input_summary.get('num_fans', item.input_summary.get('fans', 4)) }}</div>
+                {% elif item.recommendation_type == 'party' %}
+                  <div><strong>Party Type:</strong> {{ item.input_summary.get('party_type', 'Wedding') }}</div>
+                  <div><strong>Guests:</strong> {{ item.input_summary.get('num_guests', item.input_summary.get('guests', 10)) }}</div>
+                {% else %}
+                  <div><strong>Occasion:</strong> {{ item.input_summary.get('occasion', 'Birthday') }}</div>
+                  <div><strong>Outfit Image:</strong> {{ 'Yes' if item.input_summary.get('has_image') else 'No' }}</div>
+                {% endif %}
+              </div>
+            </div>
+
+            <button onclick="viewDetails('{{ item.id }}')" class="btn btn-primary btn-block btn-sm" style="background: linear-gradient(135deg, #1e40af, #2563eb);">
+              View Full Details &rarr;
+            </button>
+          </div>
+        {% endfor %}
+      {% else %}
+        <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; background: #ffffff; border-radius: var(--radius-lg); border: 1px dashed #cbd5e1;">
+          <svg style="width:48px;height:48px;color:#cbd5e1;margin-bottom:1rem;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <h3 style="font-size: 1.15rem; font-weight: 700; color: #334155; margin-bottom: 0.5rem;">No Saved Recommendations Found</h3>
+          <p style="color: #94a3b8; font-size: 0.9rem; margin-bottom: 1.5rem;">Start exploring one of our planners to generate tailored budgets!</p>
+          <div style="display: flex; justify-content: center; gap: 10px;">
+            <a href="/home-planner" class="btn btn-primary btn-sm">Home Planner</a>
+            <a href="/party-planner" class="btn btn-primary btn-sm" style="background:#0284c7;">Party Planner</a>
+            <a href="/jewelry-planner" class="btn btn-primary btn-sm" style="background:#6366f1;">Jewelry Planner</a>
+          </div>
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Detail Modal -->
+    <div id="details-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); z-index: 1000; overflow-y: auto; padding: 2rem 1rem;">
+      <div style="background: #ffffff; max-width: 750px; margin: 2rem auto; border-radius: var(--radius-xl); box-shadow: var(--shadow-xl); overflow: hidden; animation: fadeIn 0.3s ease-out;">
+        <div style="background: #1e3a8a; color: #ffffff; padding: 1.25rem 1.75rem; display: flex; justify-content: space-between; align-items: center;">
+          <h3 id="modal-title" style="font-size: 1.25rem; font-weight: 700;">Recommendation Details</h3>
+          <button onclick="closeModal()" style="background: transparent; border: none; color: #ffffff; font-size: 1.5rem; cursor: pointer;">&times;</button>
+        </div>
+        <div id="modal-body" style="padding: 1.75rem;">
+          <div style="text-align: center; padding: 2rem;"><span class="spinner"></span> Loading details...</div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer" style="margin-top: 4rem;">
+    <div class="footer-bottom" style="border-top: none; padding: 0;">
+      &copy; 2025 PocketSmart. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    async function viewDetails(recId) {
+      const modal = document.getElementById("details-modal");
+      const modalBody = document.getElementById("modal-body");
+      modal.style.display = "block";
+      modalBody.innerHTML = `<div style="text-align: center; padding: 2rem;"><span class="spinner"></span> Loading plan details...</div>`;
+
+      try {
+        const response = await fetch(`/recommendations-details/${recId}`);
+        if (response.ok) {
+          const item = await response.json();
+          renderModalContent(item);
+        } else {
+          modalBody.innerHTML = `<div style="color: #ef4444; padding: 1rem;">Could not load full recommendation details.</div>`;
+        }
+      } catch (err) {
+        modalBody.innerHTML = `<div style="color: #ef4444; padding: 1rem;">Network error fetching details.</div>`;
+      }
+    }
+
+    function renderModalContent(item) {
+      const modalBody = document.getElementById("modal-body");
+      const full = item.full_result || {};
+      
+      let breakdownHtml = "";
+      if (full.budget_breakdown) {
+        full.budget_breakdown.forEach(cat => {
+          let itemsList = "";
+          (cat.items || []).forEach(it => {
+            itemsList += `
+              <li style="margin-bottom: 6px;">
+                <strong>${it.name}</strong> - ₹${it.estimated_price} &times; ${it.quantity}
+                <div style="font-size: 0.8rem; color: #64748b;">${it.description || ''}</div>
+              </li>
+            `;
+          });
+          breakdownHtml += `
+            <div style="margin-bottom: 1rem; background: #f8fafc; padding: 12px; border-radius: var(--radius-md);">
+              <div style="font-weight: 700; color: #1e3a8a; margin-bottom: 6px;">${cat.category} (₹${cat.allocation || 0})</div>
+              <ul style="padding-left: 1.2rem;">${itemsList}</ul>
+            </div>
+          `;
+        });
+      } else if (full.jewelry_recommendations) {
+        full.jewelry_recommendations.forEach(j => {
+          breakdownHtml += `
+            <div style="margin-bottom: 1rem; background: #f8fafc; padding: 12px; border-radius: var(--radius-md);">
+              <div style="font-weight: 700; color: #6366f1;">${j.item_type || j.name} - ₹${j.estimated_price}</div>
+              <p style="font-size: 0.85rem; color: #475569; margin: 4px 0;">${j.description || ''}</p>
+            </div>
+          `;
+        });
+      }
+
+      modalBody.innerHTML = `
+        <div style="display: flex; justify-content: space-between; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid #f1f5f9;">
+          <div>
+            <div style="font-size: 0.8rem; color: #94a3b8;">Plan Timestamp</div>
+            <div style="font-weight: 600;">${item.timestamp}</div>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: #94a3b8;">Total Budget</div>
+            <div style="font-weight: 700; color: #1e3a8a;">₹${full.total_budget || 0}</div>
+          </div>
+          <div>
+            <div style="font-size: 0.8rem; color: #94a3b8;">Remaining</div>
+            <div style="font-weight: 700; color: #10b981;">₹${full.remaining_budget || 0}</div>
+          </div>
+        </div>
+
+        <h4 style="font-size: 1rem; font-weight: 700; margin-bottom: 0.75rem;">Budget Allocations:</h4>
+        ${breakdownHtml || '<p style="color:#64748b;">No itemized breakdown available.</p>'}
+
+        <div style="text-align: right; margin-top: 1.5rem;">
+          <button onclick="closeModal()" class="btn btn-secondary btn-sm">Close</button>
+        </div>
+      `;
+    }
+
+    function closeModal() {
+      document.getElementById("details-modal").style.display = "none";
+    }
+  </script>
+
+</body>
+</html>

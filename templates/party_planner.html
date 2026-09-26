@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Party Budget Planner | PocketSmart AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <a href="/dashboard" class="nav-brand">
+      <span>PocketSmart</span>
+      <span class="brand-badge" style="background: linear-gradient(135deg, #0284c7, #0ea5e9);">Party</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/dashboard"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg> Dashboard</a></li>
+      <li><a href="/home-planner"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Home Planner</a></li>
+      <li><a href="/party-planner" class="active"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/></svg> Party Planner</a></li>
+      <li><a href="/jewelry-planner"><svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> Jewelry Planner</a></li>
+      <li><a href="/logout" class="nav-btn" style="background: rgba(255,255,255,0.15);">Logout</a></li>
+    </ul>
+  </nav>
+
+  <!-- Page Banner -->
+  <header class="page-banner" style="background: linear-gradient(135deg, #0f172a 0%, #0369a1 100%);">
+    <h1>Party Budget Planner</h1>
+    <p>Plan your perfect event with AI-powered budget recommendations for food, venue, and entertainment</p>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+    <!-- Form Card -->
+    <div class="form-card">
+      <form id="party-planner-form">
+        <!-- Section 1: Basic Information -->
+        <div class="form-section">
+          <div class="form-section-title">
+            <svg style="width:20px;height:20px;color:#0284c7;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Basic Information</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="party_total_budget">Total Budget (₹)</label>
+              <div class="input-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                <input type="number" id="party_total_budget" name="total_budget" value="5000" min="500" required>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="num_guests">Number of Guests</label>
+              <div class="input-icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <input type="number" id="num_guests" name="num_guests" value="10" min="1" required>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2: Event Details -->
+        <div class="form-section">
+          <div class="form-section-title">
+            <svg style="width:20px;height:20px;color:#0284c7;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            <span>Event Details</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="party_type">Party Type</label>
+              <select id="party_type" name="party_type">
+                <option value="Birthday">Birthday Party</option>
+                <option value="Wedding" selected>Wedding / Reception</option>
+                <option value="Anniversary">Anniversary Celebration</option>
+                <option value="Corporate">Corporate / Office Meetup</option>
+                <option value="Farewell">Farewell / Housewarming</option>
+                <option value="Dinner">Casual Dinner & Friends Party</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="venue_type">Venue Type</label>
+              <select id="venue_type" name="venue_type">
+                <option value="Home" selected>Home / Private Rooftop</option>
+                <option value="Banquet Hall">Banquet Hall</option>
+                <option value="Resort">Resort / Villa</option>
+                <option value="Outdoor Lawn">Outdoor Lawn / Garden</option>
+                <option value="Cafe">Cafe / Restaurant</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Party Needs -->
+        <div class="form-section">
+          <div class="form-section-title">
+            <svg style="width:20px;height:20px;color:#0284c7;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            <span>Party Needs</span>
+          </div>
+          <div class="checkbox-group">
+            <label class="checkbox-item" style="background:#eff6ff; padding: 8px 14px; border-radius: var(--radius-md);">
+              <input type="checkbox" id="needs_catering" name="needs_catering" checked>
+              <span>🍽️ Catering / Food</span>
+            </label>
+            <label class="checkbox-item" style="background:#eff6ff; padding: 8px 14px; border-radius: var(--radius-md);">
+              <input type="checkbox" id="needs_decoration" name="needs_decoration" checked>
+              <span>🎈 Decoration & Theme</span>
+            </label>
+            <label class="checkbox-item" style="background:#eff6ff; padding: 8px 14px; border-radius: var(--radius-md);">
+              <input type="checkbox" id="needs_entertainment" name="needs_entertainment" checked>
+              <span>🎵 Entertainment & Games</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Section 4: Additional Requirements -->
+        <div class="form-section">
+          <div class="form-section-title">
+            <svg style="width:20px;height:20px;color:#0284c7;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+            <span>Additional Requirements</span>
+          </div>
+          <div class="form-group">
+            <label for="party_additional_reqs">Special Requests, Dietary Restrictions or Themes</label>
+            <textarea id="party_additional_reqs" name="additional_requirements" placeholder="E.g. Vegetarian cuisine only, Bollywood music theme, surprise gift hampers..."></textarea>
+          </div>
+        </div>
+
+        <button type="submit" id="generate-party-btn" class="btn btn-primary btn-block" style="background: linear-gradient(135deg, #0284c7, #0ea5e9); padding: 14px; font-size: 1.05rem;">
+          <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          <span>Generate Budget Plan</span>
+        </button>
+      </form>
+    </div>
+
+    <!-- Results Section -->
+    <div id="party-results-area" class="results-container">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <h2 style="font-size: 1.85rem; font-weight: 800; color: #0f172a;">Your Party Budget Plan</h2>
+          <p style="color: #64748b;">Comprehensive vendor & budget allocation for your event</p>
+        </div>
+        <button onclick="window.print()" class="btn btn-secondary" style="gap: 6px;">
+          <svg style="width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+          <span>Print / Save</span>
+        </button>
+      </div>
+
+      <!-- Budget Summary Banner -->
+      <div class="budget-summary-card" style="background: linear-gradient(135deg, #0369a1, #0284c7);">
+        <div class="summary-item">
+          <span class="summary-label">Total Party Budget</span>
+          <span class="summary-value" id="res-party-budget">₹5,000.00</span>
+        </div>
+        <div class="summary-item" style="text-align: right;">
+          <span class="summary-label">Remaining Contingency</span>
+          <span class="summary-value remaining" id="res-party-remaining">₹0.00</span>
+        </div>
+      </div>
+
+      <!-- Category Breakdowns List -->
+      <div id="party-categories-container"></div>
+
+      <!-- Venue Suggestions Card -->
+      <div class="card" style="margin-bottom: 1.75rem;">
+        <h3 style="font-size: 1.15rem; font-weight: 700; color: #0284c7; margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
+          <svg style="width:20px;height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Venue & Booking Suggestions</span>
+        </h3>
+        <div id="venue-suggestions-list"></div>
+      </div>
+
+      <!-- Party INR Calculation Table -->
+      <div class="card" style="margin-bottom: 1.75rem;">
+        <h3 style="font-size: 1.1rem; font-weight: 700; color: #0284c7; margin-bottom: 1rem;">Budget Allocation Table</h3>
+        <div style="overflow-x: auto;">
+          <table class="item-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Items Count</th>
+                <th>Total Allocated</th>
+                <th>% of Budget</th>
+              </tr>
+            </thead>
+            <tbody id="party-calc-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Additional Suggestions -->
+      <div class="tips-card" style="background: #f0fdfa; border-color: #99f6e4;">
+        <div class="tips-title" style="color: #0f766e;">
+          <svg style="width:20px;height:20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <span>Party Planning Tips & Money-Saving Hacks</span>
+        </div>
+        <ul class="tips-list" id="party-tips-list" style="color: #115e59;"></ul>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-bottom" style="border-top: none; padding: 0;">
+      &copy; 2025 PocketSmart. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("party-planner-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById("generate-party-btn");
+      btn.disabled = true;
+      btn.innerHTML = `<span class="spinner"></span> Sourcing event options with Gemini AI...`;
+
+      const payload = {
+        total_budget: parseFloat(document.getElementById("party_total_budget").value),
+        num_guests: parseInt(document.getElementById("num_guests").value) || 1,
+        party_type: document.getElementById("party_type").value,
+        venue_type: document.getElementById("venue_type").value,
+        needs_catering: document.getElementById("needs_catering").checked,
+        needs_decoration: document.getElementById("needs_decoration").checked,
+        needs_entertainment: document.getElementById("needs_entertainment").checked,
+        additional_requirements: document.getElementById("party_additional_reqs").value
+      };
+
+      try {
+        const response = await fetch("/party-budget", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+          renderPartyResults(result);
+        } else {
+          renderFallbackParty(payload);
+        }
+      } catch (err) {
+        renderFallbackParty(payload);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = `<svg style="width: 20px; height: 20px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> <span>Generate Budget Plan</span>`;
+      }
+    });
+
+    function renderPartyResults(data) {
+      document.getElementById("res-party-budget").textContent = `₹${parseFloat(data.total_budget || 0).toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+      document.getElementById("res-party-remaining").textContent = `₹${parseFloat(data.remaining_budget || 0).toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
+
+      const catContainer = document.getElementById("party-categories-container");
+      catContainer.innerHTML = "";
+
+      (data.budget_breakdown || []).forEach(cat => {
+        const group = document.createElement("div");
+        group.className = "category-group";
+        
+        let rowsHtml = "";
+        (cat.items || []).forEach(it => {
+          const links = it.shopping_links || {};
+          let chipsHtml = "";
+          for (const [platform, url] of Object.entries(links)) {
+            chipsHtml += `<a href="${url}" target="_blank" rel="noopener noreferrer" class="shop-chip ${platform}">🔗 ${platform.toUpperCase()}</a>`;
+          }
+
+          rowsHtml += `
+            <tr>
+              <td>
+                <div class="item-name">${it.name}</div>
+                <div class="item-desc">${it.description || ''}</div>
+              </td>
+              <td class="item-price">₹${parseFloat(it.estimated_price || 0).toLocaleString('en-IN')}</td>
+              <td>${it.quantity || 1}</td>
+              <td><div class="shopping-chips">${chipsHtml}</div></td>
+            </tr>
+          `;
+        });
+
+        group.innerHTML = `
+          <div class="category-header">
+            <div class="category-title" style="color: #0284c7;">
+              <svg style="width:18px;height:18px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+              <span>${cat.category}</span>
+            </div>
+            <span class="category-allocation" style="background:#e0f2fe; color:#0369a1;">₹${parseFloat(cat.allocation || 0).toLocaleString('en-IN')}</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="item-table">
+              <thead>
+                <tr>
+                  <th>Option / Vendor</th>
+                  <th>Estimated Price</th>
+                  <th>Quantity / Guests</th>
+                  <th>Direct Search / Booking Links</th>
+                </tr>
+              </thead>
+              <tbody>${rowsHtml}</tbody>
+            </table>
+          </div>
+        `;
+        catContainer.appendChild(group);
+      });
+
+      // Venue Suggestions
+      const venueList = document.getElementById("venue-suggestions-list");
+      venueList.innerHTML = "";
+      (data.venue_suggestions || []).forEach(v => {
+        let venueLinks = "";
+        for (const [platform, url] of Object.entries(v.search_links || {})) {
+          venueLinks += `<a href="${url}" target="_blank" rel="noopener noreferrer" class="shop-chip ${platform}">📍 ${platform.toUpperCase()}</a>`;
+        }
+        venueList.innerHTML += `
+          <div style="padding: 12px; background: #f8fafc; border-radius: var(--radius-md); margin-bottom: 8px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+              <div><strong>${v.name}</strong> <span style="font-size:0.82rem; color:#64748b;">(Capacity: ${v.capacity} guests)</span></div>
+              <div class="item-price">₹${parseFloat(v.estimated_cost || 0).toLocaleString('en-IN')}</div>
+            </div>
+            <div class="shopping-chips" style="margin-top: 8px;">${venueLinks}</div>
+          </div>
+        `;
+      });
+
+      // Calculation Table
+      const tbody = document.getElementById("party-calc-tbody");
+      tbody.innerHTML = "";
+      (data.calculation_table_inr || []).forEach(c => {
+        tbody.innerHTML += `
+          <tr>
+            <td><strong>${c.category}</strong></td>
+            <td>${c.items_count}</td>
+            <td class="item-price">₹${parseFloat(c.total_cost).toLocaleString('en-IN')}</td>
+            <td><span style="font-weight:600; color:#0284c7;">${c.percentage_of_budget}%</span></td>
+          </tr>
+        `;
+      });
+
+      // Tips
+      const tipsList = document.getElementById("party-tips-list");
+      tipsList.innerHTML = "";
+      (data.additional_suggestions || []).forEach(tip => {
+        tipsList.innerHTML += `<li>${tip}</li>`;
+      });
+
+      const resArea = document.getElementById("party-results-area");
+      resArea.style.display = "block";
+      resArea.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function renderFallbackParty(payload) {
+      const budget = payload.total_budget;
+      const data = {
+        total_budget: budget,
+        remaining_budget: 0,
+        budget_breakdown: [
+          {
+            category: "Catering",
+            allocation: budget * 0.45,
+            items: [{
+              name: "Party Meal Combo & Starters",
+              description: `Buffet style meal for ${payload.num_guests} guests`,
+              estimated_price: Math.round((budget * 0.45) / payload.num_guests),
+              quantity: payload.num_guests,
+              shopping_links: {
+                swiggy: "https://www.swiggy.com/search?query=party+catering",
+                zomato: "https://www.zomato.com/search?q=catering"
+              }
+            }]
+          },
+          {
+            category: "Decoration",
+            allocation: budget * 0.25,
+            items: [{
+              name: `${payload.party_type} Celebration Backdrop Kit`,
+              description: "Balloons, fairy lights and celebration banner",
+              estimated_price: budget * 0.25,
+              quantity: 1,
+              shopping_links: {
+                amazon: "https://www.amazon.in/s?k=party+decoration+kit",
+                flipkart: "https://www.flipkart.com/search?q=party+decorations"
+              }
+            }]
+          },
+          {
+            category: "Entertainment",
+            allocation: budget * 0.20,
+            items: [{
+              name: "Audio Speaker & Party Board Games",
+              description: "Interactive entertainment setup",
+              estimated_price: budget * 0.20,
+              quantity: 1,
+              shopping_links: {
+                amazon: "https://www.amazon.in/s?k=bluetooth+speaker+party",
+                bookmyshow: "https://in.bookmyshow.com/explore/events"
+              }
+            }]
+          },
+          {
+            category: "Contingency",
+            allocation: budget * 0.10,
+            items: [{
+              name: "Emergency Beverage & Cutlery Buffer",
+              description: "Extra ice, disposables and last-minute needs",
+              estimated_price: budget * 0.10,
+              quantity: 1,
+              shopping_links: {
+                bigbasket: "https://www.bigbasket.com/ps/?q=disposable+party+plates"
+              }
+            }]
+          }
+        ],
+        venue_suggestions: [{
+          name: `${payload.venue_type} Reservation`,
+          type: payload.venue_type,
+          capacity: payload.num_guests,
+          estimated_cost: 0,
+          search_links: {
+            google: "https://www.google.com/search?q=event+venue",
+            makemytrip: "https://www.makemytrip.com/hotels/",
+            oyorooms: "https://www.oyorooms.com/"
+          }
+        }],
+        calculation_table_inr: [
+          { category: "Catering", items_count: payload.num_guests, total_cost: budget * 0.45, percentage_of_budget: 45 },
+          { category: "Decoration", items_count: 1, total_cost: budget * 0.25, percentage_of_budget: 25 },
+          { category: "Entertainment", items_count: 1, total_cost: budget * 0.20, percentage_of_budget: 20 },
+          { category: "Contingency", items_count: 1, total_cost: budget * 0.10, percentage_of_budget: 10 }
+        ],
+        additional_suggestions: [
+          "Consider making the meal a potluck style if comfortable with guests to reduce catering costs.",
+          "Look for discounts or bulk offers on Swiggy Party and BigBasket."
+        ]
+      };
+      renderPartyResults(data);
+    }
+  </script>
+
+</body>
+</html>

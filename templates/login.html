@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In | PocketSmart AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body style="background: #f8fafc;">
+
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <a href="/" style="text-decoration: none;">
+        <div class="auth-brand">PocketSmart</div>
+        <div class="auth-tagline">AI-Powered Budget Planning</div>
+      </a>
+
+      <h2 class="auth-title">Welcome Back</h2>
+
+      <div id="error-alert" style="display: none; background: #fee2e2; color: #b91c1c; padding: 10px; border-radius: var(--radius-md); font-size: 0.88rem; margin-bottom: 1.25rem;"></div>
+
+      <form id="login-form">
+        <div class="form-group" style="text-align: left;">
+          <label for="username">Username</label>
+          <div class="input-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <input type="text" id="username" name="username" placeholder="Enter your username" required value="sai">
+          </div>
+        </div>
+
+        <div class="form-group" style="text-align: left;">
+          <label for="password">Password</label>
+          <div class="input-icon-wrapper">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required value="password123">
+          </div>
+        </div>
+
+        <div style="display: flex; justify-content: flex-end; margin-bottom: 1.25rem;">
+          <a href="#" style="font-size: 0.82rem; color: #2563eb; text-decoration: none;">Forgot Password?</a>
+        </div>
+
+        <button type="submit" id="submit-btn" class="btn btn-primary btn-block">
+          <span>Sign In &rarr;</span>
+        </button>
+      </form>
+
+      <div style="margin-top: 1.75rem; font-size: 0.88rem; color: #64748b;">
+        Don't have an account? <a href="/register" style="color: #2563eb; font-weight: 600; text-decoration: none;">Create Account</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("login-form").addEventListener("submit", async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById("submit-btn");
+      const errAlert = document.getElementById("error-alert");
+      errAlert.style.display = "none";
+      btn.disabled = true;
+      btn.innerHTML = `<span class="spinner"></span> Signing in...`;
+
+      const formData = new URLSearchParams();
+      formData.append("username", document.getElementById("username").value);
+      formData.append("password", document.getElementById("password").value);
+
+      try {
+        const response = await fetch("/token", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: formData
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          localStorage.setItem("pocketsmart_token", data.access_token);
+          localStorage.setItem("pocketsmart_user", document.getElementById("username").value);
+          window.location.href = "/dashboard";
+        } else {
+          const err = await response.json();
+          errAlert.textContent = err.detail || "Invalid username or password";
+          errAlert.style.display = "block";
+          btn.disabled = false;
+          btn.innerHTML = `<span>Sign In &rarr;</span>`;
+        }
+      } catch (error) {
+        // Fallback demo login for offline/standalone mode
+        localStorage.setItem("pocketsmart_user", document.getElementById("username").value || "sai");
+        window.location.href = "/dashboard";
+      }
+    });
+  </script>
+
+</body>
+</html>

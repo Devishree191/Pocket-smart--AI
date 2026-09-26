@@ -1,0 +1,23 @@
+{
+  "name": "open-smart-ai",
+  "version": "1.0.0",
+  "description": "Open-Smart-AI - Next-Generation Open Source AI Studio & Agent Platform",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx -y serve . -p 3000",
+    "dev": "npx -y serve . -p 3000"
+  },
+  "keywords": [
+    "ai",
+    "smart-ai",
+    "rag",
+    "autonomous-agents",
+    "model-arena",
+    "prompt-engineering",
+    "multimodal",
+    "gemini",
+    "deepseek"
+  ],
+  "author": "Open-Smart-AI Team",
+  "license": "MIT"
+}
